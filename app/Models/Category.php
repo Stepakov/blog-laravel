@@ -26,4 +26,12 @@ class Category extends Model
     }
 
     protected $fillable = [ 'title' ];
+
+
+    /* RELATIONSHIPS */
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

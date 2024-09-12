@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string( 'slug' )->unique();
             $table->text( 'content' )->nullable();
             $table->string( 'thumbnail' )->nullable();
-            $table->string( 'image' )->nullable();
+            $table->string( 'poster' )->nullable();
             $table->foreignIdFor( \App\Models\User::class )
                 ->constrained()
                 ->nullable();
