@@ -31,6 +31,17 @@
             />
         </div>
 
+
+
+        <div class="mb-3">
+            <x-select name="tags[]"
+                      label="Tags"
+                      :value="old( 'tags' ) ?? $post->tags->pluck( 'id' )->toArray()"
+                      :options="$tags"
+                      :multiple="true"
+            />
+        </div>
+
         <div class="mb-3">
             <x-checkbox name="is_published" label="Is Published" :value="old( 'is_published' ) ?? $post->is_published"  />
         </div>

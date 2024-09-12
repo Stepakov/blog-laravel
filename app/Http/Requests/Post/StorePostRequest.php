@@ -27,6 +27,8 @@ class StorePostRequest extends FormRequest
             'thumbnail' => [ 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:2048' ],
             'poster' => [ 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:2048' ],
             'category_id' => [ 'nullable', 'integer', 'exists:categories,id' ],
+            'tags' => [ 'nullable', 'array' ],
+            'tags.*' => [ 'nullable', 'integer', 'exists:tags,id' ],
             'is_published' => [ 'nullable', 'string' ]
         ];
     }

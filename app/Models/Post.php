@@ -52,8 +52,12 @@ class Post extends Model
 
     public function getCatAttribute()
     {
-//        dd( $this );
         return $this->category ? $this->category->title : "No Category";
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
     }
 
     /* RELATIONSHIPS */
@@ -66,5 +70,10 @@ class Post extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

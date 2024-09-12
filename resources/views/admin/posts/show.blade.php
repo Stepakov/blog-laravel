@@ -8,5 +8,19 @@
     Category: {{ $post->cat }} <br>
     Is Published: {{ $post->is_published }} <br>
     Status: {{ $post->status }} <br>
+    Tags:
+    @if( $post->tags->isNotEmpty() )
+    @foreach( $post->getTags() as $tag )
+            <span>
+                <a href="{{ route( 'admin.tags.show', $tag->slug ) }}">
+                    {{ $tag->title }}
+                </a>
+                {{ $loop->last ? '' : ', ' }}
+            </span>
+          @endforeach
+    @else
+        No Tags
+    @endif
+
 
 </x-layouts.main>

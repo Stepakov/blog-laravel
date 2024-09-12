@@ -7,6 +7,8 @@ use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
@@ -26,7 +28,8 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::all()->pluck('title', 'id');
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all()->pluck('title', 'id');
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -35,6 +38,7 @@ class PostsController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->validated();
+        $tags = Arr::pull( $data, 'tags' );
 
         if( $request->hasFile('thumbnail') ) {
             $path = 'thumbnails/' . date( 'Y-m-d' );
@@ -51,7 +55,9 @@ class PostsController extends Controller
         $data[ 'is_published' ] = $request->boolean('is_published');
         $data[ 'user_id' ] = 1;
 
-        Post::create( $data );
+        $post = Post::create( $data );
+
+        $post->tags()->attach( $tags );
 
         return redirect()->route( 'admin.posts.index' )
             ->with( 'success', trans( 'notifications.post.created' ) );
@@ -70,8 +76,9 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        $categories = Category::all()->pluck('title', 'id');
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $categories = Category::all()->pluck('title', 'id')->toArray();
+        $tags = Tag::all()->pluck('title', 'id')->toArray();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -80,6 +87,7 @@ class PostsController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $data = $request->validated();
+        $tags = Arr::pull( $data, 'tags' );
 
         if( $request->hasFile('thumbnail') ) {
             if( $post->thumbnail )
@@ -102,6 +110,8 @@ class PostsController extends Controller
 
         $post->update( $data );
 
+        $post->tags()->sync( $tags );
+
         return redirect()->route( 'admin.posts.index' )
             ->with( 'success', trans( 'notifications.post.updated' ) );
     }
@@ -116,6 +126,8 @@ class PostsController extends Controller
 
         if( $post->poster )
             Storage::disk('public')->delete( $post->poster );
+
+        $post->tags()->detach();
 
         $post->delete();
         return redirect()->route( 'admin.posts.index' )

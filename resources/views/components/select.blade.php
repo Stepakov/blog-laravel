@@ -4,6 +4,7 @@
     'options',
     'items',
     'value' => null,
+    'multiple' => null,
     ])
 
 {{--@dd( $value )--}}
@@ -13,10 +14,12 @@
     name="{{ $name }}"
     class="form-control"
     id="{{ $name }}"
+    @if( $multiple ) multiple @endif
 >
     @foreach( $options as $key => $val )
         <option
-            @if( $value && $key == $value ) selected @endif
+            @if( $value && is_array( $value ) && in_array( $key, $value ) ) selected @endif
+            @if( $value && !is_array( $value ) && $key == $value ) selected @endif
             value="{{ $key }}">{{ $val }}</option>
     @endforeach
 </select>
