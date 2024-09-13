@@ -13,6 +13,7 @@
         <div class="my-1">
             {{ $user->id }} |
             <a href="{{ route( 'admin.profile', $user->id ) }}">{{ $user->name }}</a> -
+            {{ $user->role->text() }} |
             {{ $user->email }} -
 {{--            <a href="{{ route( 'admin.users.show', $user->slug ) }}">Show</a>--}}
 {{--            |--}}
@@ -41,7 +42,7 @@
         btn.addEventListener( 'click', function( event ){
             event.preventDefault();
 
-            if( confirm( 'Are you sure you want to delete User?' ) )
+            if( confirm( 'Are you sure you want to delete Role?' ) )
             {
                 event.target.closest( 'form' ).submit();
             }

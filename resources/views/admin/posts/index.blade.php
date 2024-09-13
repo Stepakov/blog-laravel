@@ -7,7 +7,7 @@
 
     @forelse( $posts as $post )
         <div class="my-1">
-            {{ $post->id }}|{{ $post->title }} -
+            {{ $post->id }}|{{ $post->title }} | {{ $post->status->text() }} -
             <a href="{{ route( 'admin.posts.show', $post->slug ) }}">Show</a>
             |
             <a href="{{ route( 'admin.posts.edit', $post->slug) }}">Edit</a>
@@ -35,7 +35,7 @@
         btn.addEventListener('click', function (event) {
             event.preventDefault();
 
-            if (confirm('Are you sure you want to delete Post?')) {
+            if (confirm('Are you sure you want to delete Status?')) {
                 event.target.closest('form').submit();
             }
         })

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\Post\Status;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,10 @@ class Post extends Model
 {
     use HasFactory;
     use Sluggable;
+
+    protected $casts = [
+        'status' => Status::class,
+    ];
 
     public function getRouteKeyName()
     {

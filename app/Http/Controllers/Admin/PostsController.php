@@ -18,6 +18,7 @@ class PostsController extends Controller
      */
     public function index()
     {
+//        dd( Post::first()->status->text() );
         $posts = Post::all();
         return view('admin.posts.index', compact('posts'));
     }
