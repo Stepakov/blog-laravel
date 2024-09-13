@@ -12,7 +12,7 @@
     @forelse( $users as $user )
         <div class="my-1">
             {{ $user->id }} |
-            {{ $user->name }} -
+            <a href="{{ route( 'admin.profile', $user->id ) }}">{{ $user->name }}</a> -
             {{ $user->email }} -
 {{--            <a href="{{ route( 'admin.users.show', $user->slug ) }}">Show</a>--}}
 {{--            |--}}
