@@ -8,4 +8,7 @@
     <div class="list-group-item">
         <a href="{{ route( 'admin.tags.index') }}">Tags</a>
     </div>
+    <div class="list-group-item">
+        <a href="{{ route( 'admin.users.index') }}">Users</a>
+    </div>
 </div>

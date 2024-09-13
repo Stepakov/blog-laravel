@@ -3,13 +3,14 @@
     'label',
     'type' => 'text',
     'value' => null,
+    'class' => 'form-control',
     ])
 
 <label for="{{ $name }}" class="form-label">{{ $label }}</label>
 <input
     name="{{ $name }}"
     type="{{ $type }}"
-    class="form-control"
+    class="{{ $class }}"
     id="{{ $name }}"
     placeholder={{ $label }}
     @if( $value ) value="{{ $value }}" @endif

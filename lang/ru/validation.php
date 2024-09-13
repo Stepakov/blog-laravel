@@ -191,7 +191,9 @@ return [
 
     'attributes' => [
         'title' => 'Заголовок',
-        'content' => 'Содержание'
+        'content' => 'Содержание',
+        'role' => 'Роль',
+        'password' => 'Пароль',
     ],
 
 ];
